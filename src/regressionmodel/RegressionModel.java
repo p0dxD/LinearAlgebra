@@ -139,8 +139,8 @@ public class RegressionModel extends Application {
         Label labelXY = new Label("Σxy = "+ getSummationXY());
         Label labelXX = new Label("Σx² = "+ getSummationXSquared());
         Label n = new Label("n = " + sizeN);
-        double qRounded = Math.round(getQ());//here we round the numbers
-        double rRounded = Math.round(getR());//here we round the numbers
+        double qRounded = (double)Math.round(getQ()*1000)/1000;//here we round the numbers
+        double rRounded = (double)Math.round(getR()*1000)/1000;//here we round the numbers
         Label answer = new Label("ŷ = " + qRounded+" x + "+rRounded);
         
         pane.add(n, 0, 0);
