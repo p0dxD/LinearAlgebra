@@ -9,7 +9,6 @@
 package regressionmodel;
 
 import java.util.Scanner;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,40 +18,28 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Joseph
- */
-public class RegressionModel extends Application {
+public class RegressionModel{
 
     private double sizeN, x, y, xSquared,xy;
     private double q, r;
     private int matrix[][];
     private Scanner scan;
     private final int START = 3;
-    RegressionModel test;
-    TextField[][] tf;
-    TextField textfield;
-    TextField sizetf;
-    Button setSize;
-    Button calculate;
+    private RegressionModel test;
+    private TextField[][] tf;
+    private TextField textfield;
+    private TextField sizetf;
+    private Button setSize;
+    private Button calculate;
 
-    @Override
-    public void start(Stage primaryStage) {
-        sizetf = new TextField("size");
-
-        setSize = new Button("Set Size");
-        GridPane pane = new GridPane();
-        setArray(START, pane);//we start with 3
-        setSize.setOnMouseClicked(e -> {
+RegressionModel(GridPane pane){
+    sizetf = new TextField("size");
+    setSize = new Button("Set Size");
+    setArray(START, pane);//we start with 3
+            setSize.setOnMouseClicked(e -> {
             setArray(Integer.parseInt(sizetf.getText()), pane);
         });
-        Scene scene = new Scene(pane, 400, 400);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Lineal regression");
-        primaryStage.show();
-    }
-
+}
     /**
      * This fills up the arrays and displays to the screen the 
      * text boxes
@@ -213,6 +200,11 @@ public class RegressionModel extends Application {
             xSquared += matrix[0][j]*matrix[0][j];
         }       
     }
+    
+    /**
+     * Gets the result for x^2
+     * @return x^2
+     */
     public double getSummationXSquared(){
         return xSquared;
     }
@@ -223,6 +215,11 @@ public class RegressionModel extends Application {
         q = (((sizeN)*(getSummationXY()))-((getSummationX())*getSummationY()))
                 /(((sizeN)*getSummationXSquared())-((getSummationX()*getSummationX())));
     }
+    
+    /**
+     * Gets the q result
+     * @return q
+     */
     public double getQ(){
         return q;
     }
@@ -233,9 +230,17 @@ public class RegressionModel extends Application {
         r = (((getSummationY())*(getSummationXSquared()))-((getSummationX())*(getSummationXY())))
                 /((sizeN)*(getSummationXSquared())-((getSummationX())*(getSummationX())));
     }
+    /**
+     * Gets the r result
+     * @return r
+     */
     public double getR(){
         return r;
-    }
+    }/**
+     * Calculates each parameter
+     * @param tf array to get the values from
+     * @param size size of the array to be set
+     */
     public void calculate(TextField[][] tf, int size){
         setXYvalues(tf,size);
         summationXY();
@@ -245,12 +250,4 @@ public class RegressionModel extends Application {
         calculateQ();
         calculateR();
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
-
 }
